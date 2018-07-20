@@ -17,9 +17,20 @@ export default class MainPage extends Component {
     static navigationOptions = {
         title: 'MainPage'
     }
+    constructor(props) {
+        super(props)
+        this.state = {
+            name: this.props.navigation.state.params.user.name,
+            age: this.props.navigation.state.params.user.age
+        }
+    }
+
+    componentDidMount() {
+        console.log(this.props.navigation.state.params)
+    }
 
     logout() {
-        this.props.navigation.navigate('LoginPage')
+        this.props.navigation.pop()
     }
 
     render() {
@@ -28,6 +39,9 @@ export default class MainPage extends Component {
                 onPress={() => { this.logout() }}>
                 <Text style={{ fontSize: 16, color: '#333333', paddingHorizontal: 10, paddingVertical: 3 }}>退出登录</Text>
             </TouchableOpacity>
+
+            <Text style={{ marginTop: 50, fontSize: 16, color: 'blue' }}>姓名: {this.state.name}</Text>
+            <Text style={{ marginTop: 10, fontSize: 16, color: 'blue' }}>年龄: {this.state.age}</Text>
         </View>
     }
 

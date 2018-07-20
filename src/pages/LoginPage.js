@@ -25,7 +25,7 @@ class LoginPage extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         if (nextProps.status === '登录成功' && nextProps.isSuccess) {
-            this.props.navigation.navigate('Main')
+            this.props.navigation.push('Main', { user: nextProps.user })
             return false
         }
         return true
