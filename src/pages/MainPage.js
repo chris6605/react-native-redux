@@ -11,8 +11,9 @@ import { connect } from 'react-redux';
 
 import { NavigationActions } from 'react-navigation';
 
+import * as countAction from '../actions/CountActions'
 
-export default class MainPage extends Component {
+class MainPage extends Component {
 
     static navigationOptions = {
         title: 'MainPage'
@@ -26,7 +27,7 @@ export default class MainPage extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.navigation.state.params)
+
     }
 
     logout() {
@@ -42,11 +43,41 @@ export default class MainPage extends Component {
 
             <Text style={{ marginTop: 50, fontSize: 16, color: 'blue' }}>姓名: {this.state.name}</Text>
             <Text style={{ marginTop: 10, fontSize: 16, color: 'blue' }}>年龄: {this.state.age}</Text>
+
+            <Text style={{ marginTop: 20, fontSize: 14, color: '#333' }}>{this.props.count}</Text>
+            <View style={{ marginTop: 30, flexDirection: 'row' }}>
+                <TouchableOpacity style={{ backgroundColor: '#cdcdcd' }}
+                    onPress={() => {
+                        this.props.dispatch(countAction.increase())
+                    }}>
+                    <Text style={{ fontSize: 16, color: '#333333', paddingHorizontal: 10, paddingVertical: 3 }}>加</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ backgroundColor: '#cdcdcd' }}
+                    onPress={() => {
+                        this.props.dispatch(countAction.deincrease())
+                    }}>
+                    <Text style={{ fontSize: 16, color: '#333333', paddingHorizontal: 10, paddingVertical: 3 }}>减</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ backgroundColor: '#cdcdcd' }}
+                    onPress={() => {
+                        this.props.dispatch(countAction.reset())
+                    }}>
+                    <Text style={{ fontSize: 16, color: '#333333', paddingHorizontal: 10, paddingVertical: 3 }}>重置</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     }
 
 
 }
+
+function select(store) {
+    return {
+        count: store.countReducer.count
+    }
+}
+
+export default connect(select)(MainPage)
 
 
 
