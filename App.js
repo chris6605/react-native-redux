@@ -11,26 +11,67 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  Dimensions
 } from 'react-native';
 
 import MainPage from './src/pages/MainPage';
 
 import LoginPage from './src/pages/LoginPage';
 
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, createStackNavigator } from 'react-navigation';
 
-const App = StackNavigator({
-  Login: { screen: LoginPage },
-  Main: { screen: MainPage }
+const mScreenWidth = Dimensions.get('window').width
+const mScreenHeight = Dimensions.get('window').height
 
-}, {
-    initialRouteName: 'Login'
+export default class App extends Component {
+
+  StackNav = null
+  constructor(props) {
+    super(props)
+    this.state = {
+
+    }
+
+    this.initNavigation()
   }
-);
+
+  componentDidMount() {
+
+  }
 
 
-export default App
+  initNavigation() {
+    this.StackNav = createStackNavigator({
+      Login: { screen: LoginPage },
+      Main: { screen: MainPage }
+    }, {
+        initialRouteName: 'Login'
+      }
+    );
+
+  }
+
+
+  render() {
+    return <View style={{ width: mScreenWidth, height: mScreenHeight }}>
+
+      <this.StackNav />
+
+    </View>
+  }
+
+
+
+
+}
+
+
+
+
+
+
+
 
 
 
