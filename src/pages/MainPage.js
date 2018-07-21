@@ -65,6 +65,8 @@ class MainPage extends Component {
                     <Text style={{ fontSize: 16, color: '#333333', paddingHorizontal: 10, paddingVertical: 3 }}>重置</Text>
                 </TouchableOpacity>
             </View>
+
+            <View style={{ width: 100, height: 50, backgroundColor: this.props.color, marginTop: 20 }} />
         </View>
     }
 
@@ -73,7 +75,8 @@ class MainPage extends Component {
 
 function select(store) {
     return {
-        count: store.countReducer.count
+        count: store.countReducer.count,
+        color: store.themeReducer.color,
     }
 }
 
