@@ -7,6 +7,7 @@ let user = {
     age: 25
 }
 
+//  模拟数据
 let doingData = {
     status: '点击登录',
     isSuccess: false,
@@ -24,6 +25,7 @@ let errData = {
     isSuccess: false,
     user: null
 }
+
 
 // 异步的网络请求方法 在这里再进行 dispatch Action
 export function loginRequest(action) {
