@@ -13,11 +13,20 @@ import { NavigationActions } from 'react-navigation';
 
 import * as countAction from '../actions/CountActions'
 
+import *as loginActions from '../actions/LoginActions';
+
 class MainPage extends Component {
 
     static navigationOptions = {
         title: 'MainPage'
     }
+
+    outData = {
+        status: '请重新登录',
+        isSuccess: false,
+        user: null
+    }
+
     constructor(props) {
         super(props)
         this.state = {
@@ -37,7 +46,10 @@ class MainPage extends Component {
     render() {
         return <View style={{ flex: 1, backgroundColor: '#fff', alignItems: 'center' }}>
             <TouchableOpacity style={{ backgroundColor: '#cdcdcd', marginTop: 200 }}
-                onPress={() => { this.logout() }}>
+                onPress={() => {
+                    this.logout()
+                    this.props.dispatch(loginActions.login_out(this.outData))
+                }}>
                 <Text style={{ fontSize: 16, color: '#333333', paddingHorizontal: 10, paddingVertical: 3 }}>退出登录</Text>
             </TouchableOpacity>
 

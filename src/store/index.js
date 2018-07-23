@@ -10,7 +10,11 @@ import rootReducer from '../reducers';
 
 
 function configureStore(initialState) {
-    return createStore(rootReducer, initialState, compose(applyMiddleware(createLogger)));
+    return createStore(
+        rootReducer,
+        initialState,
+        compose(applyMiddleware(thunk, createLogger))
+    );
 }
 
 const store = configureStore();

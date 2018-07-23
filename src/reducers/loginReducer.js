@@ -3,9 +3,11 @@
 import * as types from '../constants/LoginTypes';
 
 const initialState = {
-    status: '点击登录',
-    isSuccess: false,
-    user: null
+    data: {
+        status: '点击登录',
+        isSuccess: false,
+        user: null
+    }
 }
 
 export default function loginIn(state = initialState, action) {
@@ -13,25 +15,24 @@ export default function loginIn(state = initialState, action) {
         case types.LOGIN_IN_DOING:
             return {
                 ...state,
-                status: '正在登录',
-                isSuccess: false,
-                user: null
+                data: action.data
             }
 
         case types.LOGIN_IN_DONE:
             return {
                 ...state,
-                status: '登录成功',
-                isSuccess: true,
-                user: action.user
+                data: action.data
             }
 
         case types.LOGIN_IN_ERROR:
             return {
                 ...state,
-                status: '登录失败',
-                isSuccess: true,
-                user: null
+                data: action.data
+            }
+        case types.LOGIN_IN_OUT:
+            return {
+                ...state,
+                data: action.data
             }
 
         default:
