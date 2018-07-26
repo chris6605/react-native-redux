@@ -3,8 +3,6 @@
 import * as types from '../constants/LoginTypes';
 import { loginRequest } from '../API/loginRequest';
 
-// action creato
-
 let outData = {
     status: '点击登录',
     isSuccess: false,
