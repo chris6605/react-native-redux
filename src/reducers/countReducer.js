@@ -17,7 +17,7 @@ export default function count(state = defaultState, action) {
 
         case types.INCREMENT:
             return {
-                ...state,
+                ...state,  // 这里需要注意的是state 是上次作用后的 state, 如果没有新的 state 去覆盖他 一定不要...state , 你会得到上次的 state
                 count: state.count + state.factor
             }
 

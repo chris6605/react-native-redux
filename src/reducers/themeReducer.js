@@ -1,4 +1,5 @@
 import * as types from '../constants/ThemeTypes';
+
 const defaultState = {
     color: '#1097d5'
 }

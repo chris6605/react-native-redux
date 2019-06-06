@@ -3,8 +3,9 @@
 import * as types from '../constants/LoginTypes';
 
 const initialState = {
+    icon: 'https://ws3.sinaimg.cn/large/005BYqpggy1g3nqgsgmj9j301s01s3yc.jpg',
     name: '',
-    password: 0
+    password: ''
 }
 
 export default function loginIn(state = initialState, action) {
@@ -15,6 +16,7 @@ export default function loginIn(state = initialState, action) {
                 status: 1,
                 message: '登录成功',
                 user: {
+                    ...state,
                     ...action.data
                 }
             }
@@ -31,7 +33,10 @@ export default function loginIn(state = initialState, action) {
             return {
                 status: 0,
                 message: '退出登录',
-                user: null
+                user: {
+                    ...initialState,
+                    ...action.data
+                }
             }
 
         default:
