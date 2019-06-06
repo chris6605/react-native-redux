@@ -47,7 +47,7 @@ class LoginPage extends Component {
 
     render() {
         console.log(this.props)
-        let { user } = this.props
+        let { user, loginAction } = this.props
         return <View style={{ flex: 1, backgroundColor: '#fff', justifyContent: 'center', alignItems: 'center' }}>
 
             <Image style={{ width: 60, height: 60 }} source={{ uri: user ? user.icon : 'https://ws3.sinaimg.cn/large/005BYqpggy1g3nqgsgmj9j301s01s3yc.jpg' }} />
@@ -82,16 +82,14 @@ class LoginPage extends Component {
 
                     if (this.state.name && this.state.password) {
                         let obj = { name: this.state.name, password: this.state.password, icon: 'https://ws3.sinaimg.cn/large/005BYqpggy1g1qsw2e8bzj30sg0sg0ui.jpg' }
-                        this.props.loginAction(obj)
-                        //  this.props.dispatch(themeAction.blueAction())
+                        loginAction(obj)
 
                         // 如果不使用matchDispatchToProps 的话可以使用这种方法 dispatch 一个 action
-                        // this.props.dispatch(loginAction.requireLogin(obj));
+                        //this.props.dispatch(loginAction.requireLogin(obj));
 
                     } else {
                         alert('请完善登录信息')
                     }
-
                 }}>
                 <Text style={{ fontSize: 16, color: '#fff' }}>登录</Text>
             </TouchableOpacity>

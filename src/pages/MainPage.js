@@ -58,8 +58,8 @@ class MainPage extends Component {
 
             <Image style={{ width: 60, height: 60, borderRadius: 30 }} source={{ uri: user ? user.icon : 'https://ws3.sinaimg.cn/large/005BYqpggy1g3nqgsgmj9j301s01s3yc.jpg' }} />
 
-            <View style={{ marginTop: 60, width: 375, paddingHorizontal: 20, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 16, color: 'blue' }}>姓名:</Text>
+            <View style={{ marginTop: 30, width: 375, paddingHorizontal: 20, flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ fontSize: 16, color: 'blue' }}>昵称:</Text>
                 <Text style={{ marginLeft: 10, fontSize: 16, color: '#333' }}>{user.name}</Text>
             </View>
 
@@ -74,7 +74,7 @@ class MainPage extends Component {
             </View>
 
 
-            <Text style={{ marginTop: 40, fontSize: 18, color: '#222' }}>下面是加减demo</Text>
+            <Text style={{ marginTop: 40, fontSize: 18, color: '#222' }}>加减demo</Text>
             <View style={{ marginTop: 20, width: 375, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                 <TouchableOpacity style={{ paddingHorizontal: 10 }}
                     onPress={() => {
@@ -102,7 +102,7 @@ class MainPage extends Component {
             </View>
 
 
-            <Text style={{ marginTop: 40, fontSize: 18, color: '#222' }}>下面是主题切换demo</Text>
+            <Text style={{ marginTop: 40, fontSize: 18, color: '#222' }}>主题切换</Text>
             <View style={{ marginTop: 10, width: 100, height: 40, backgroundColor: color }} />
 
             <View style={{ marginTop: 20, flexDirection: 'row', alignItems: 'center' }}>
@@ -110,19 +110,19 @@ class MainPage extends Component {
                     onPress={() => {
                         redAction()
                     }}>
-                    <Text style={{ fontSize: 16, color: '#333' }}>红色</Text>
+                    <Text style={{ fontSize: 16, color: 'red' }}>红色</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={{ marginLeft: 80 }}
                     onPress={() => {
                         blueAction()
                     }}>
-                    <Text style={{ fontSize: 16, color: '#333' }}>蓝色</Text>
+                    <Text style={{ fontSize: 16, color: 'blue' }}>蓝色</Text>
                 </TouchableOpacity>
             </View>
 
 
-            <TouchableOpacity style={{ backgroundColor: 'red', marginTop: 30 }}
+            <TouchableOpacity style={{ backgroundColor: 'red', marginTop: 50 }}
                 onPress={() => {
                     this.props.logoutAction()
                 }}>
