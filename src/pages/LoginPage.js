@@ -22,65 +22,98 @@ import MainPage from './MainPage';
 
 
 class LoginPage extends Component {
+
     static navigationOptions = {
         title: 'LoginPage'
     }
 
-
-    shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.status === '登录成功' && nextProps.isSuccess) {
-            this.props.navigation.push('Main', { user: nextProps.user });
+    constructor(props) {
+        super(props)
+        this.state = {
+            name: '',
+            password: ''
         }
-        return true
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.status == 1) {
+            this.props.navigation.push('Main');
+        }
     }
 
 
+
     render() {
-        const { LoginAction } = this.props
         console.log(this.props)
-        return <View style={{ flex: 1, backgroundColor: '#fff', alignItems: 'center' }}>
-            <TouchableOpacity style={{ backgroundColor: '#cdcdcd', marginTop: 200 }}
+        return <View style={{ flex: 1, backgroundColor: '#fff', justifyContent: 'center', alignItems: 'center' }}>
+
+            <View style={{ width: 375, flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ marginLeft: 20, fontSize: 16, color: 'blue' }}>name: </Text>
+                <TextInput style={{ marginLeft: 10, flex: 1, fontSize: 13, color: '#333' }}
+                    underlineColorAndroid="transparent"
+                    value={this.state.name}
+                    placeholder='请输入name'
+                    placeholderTextColor={'#ccc'}
+                    onChangeText={(text) => this.setState({ name: text })}
+                />
+            </View>
+
+            <View style={{ width: 375, marginTop: 20, flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ marginLeft: 20, fontSize: 16, color: 'blue' }}>password: </Text>
+                <TextInput style={{ marginLeft: 10, flex: 1, fontSize: 13, color: '#333' }}
+                    underlineColorAndroid="transparent"
+                    value={this.state.password}
+                    placeholder='请输入password'
+                    placeholderTextColor={'#ccc'}
+                    onChangeText={(text) => this.setState({ password: text })}
+                />
+            </View>
+
+           
+
+            <TouchableOpacity style={{ marginTop: 200, width: 335, height: 36, justifyContent: 'center', alignItems: 'center', backgroundColor: 'blue' }}
                 onPress={() => {
-                    this.props.dispatch(loginAction.requireLogin());
-                    // LoginAction()
+                    let obj = { name: this.state.name, password: this.state.password }
+                    // this.props.dispatch(loginAction.requireLogin(obj));
+                    this.props.loginAction(obj)
                 }}>
-                <Text style={{ fontSize: 16, color: '#333333', paddingHorizontal: 10, paddingVertical: 3 }}>登录</Text>
+                <Text style={{ fontSize: 16, color: '#fff' }}>登录</Text>
             </TouchableOpacity>
-            <Text style={{ marginTop: 20, fontSize: 16, color: '#3333' }}>{this.props.status}</Text>
-            <View style={{ width: 100, height: 50, backgroundColor: this.props.color, marginTop: 20 }} />
-            <TouchableOpacity style={{ backgroundColor: '#cdcdcd', marginTop: 20 }}
-                onPress={() => {
-                    this.props.dispatch(themeAction.redAction());
-                }}>
-                <Text style={{ fontSize: 16, color: '#333333', paddingHorizontal: 10, paddingVertical: 3 }}>紅色</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={{ backgroundColor: '#cdcdcd', marginTop: 20 }}
-                onPress={() => {
-                    this.props.dispatch(themeAction.blueAction());
-                }}>
-                <Text style={{ fontSize: 16, color: '#333333', paddingHorizontal: 10, paddingVertical: 3 }}>藍色</Text>
-            </TouchableOpacity>
+
+
         </View>
     }
 }
 
-// 这个函数最正确的名字应该叫 mapStateToProps(state) 把 reducer 里改变过的 state 通过 props 传递过来
-function select(state) {
+
+function mapStateToProps(state) {
     return {
-        status: state.LoginReducer.data.status,
-        isSuccess: state.LoginReducer.data.isSuccess,
-        user: state.LoginReducer.data.user,
-        color: state.themeReducer.color
+        user: state.LoginReducer.user,
+        status: state.LoginReducer.status,
+        message: state.LoginReducer.message
     }
 }
 
 // 自动绑定 action creators到 dispatch() 函数 这个函数一样 把你要 dispatch 的 action 当做 props 传递过来  如果这么写 上面的触发 action 的时候就不要 this.prop.dispatch(xxxAction) 了 , 可以直接写 this,props.LoginAction
+/**
+ * 解释一下 bindActionCreactors 作用解决了如何在子组件中获取到dispatch 当然也可以通过 props 传
+ * 接受一个 function 或者 object 返回 function /object 
+ * @param {*} bindAction:  {login_doing: ƒ, login_done: ƒ, login_err: ƒ, login_out: ƒ, requireLogin: ƒ}
+ * {
+   addTodo : text => dispatch(addTodo('text'));
+   removeTodo : id => dispatch(removeTodo('id'));
+    }
+    相当于 dispath 一个 action
+ */
 function matchDispatchToProps(dispatch) {
+    let bindAction = bindActionCreators(loginAction, dispatch)
+
     return {
-        LoginAction: bindActionCreators(loginAction.requireLogin, dispatch)
+        loginAction: bindAction.requireLogin
     }
 }
 
 // connect 连接组件与 store ,任何时候只要 store 发生改变, mapStateToProps 都会被调用, 函数接收两个参数 第一个参数里有两个参数 分别是mapStateToProps  matchDispatchToProps 
-export default connect(select)(LoginPage)
-//export default connect(select)(LoginPage)
+export default connect(mapStateToProps, matchDispatchToProps)(LoginPage)
+

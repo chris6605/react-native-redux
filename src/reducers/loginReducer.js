@@ -3,36 +3,35 @@
 import * as types from '../constants/LoginTypes';
 
 const initialState = {
-    data: {
-        status: '点击登录',
-        isSuccess: false,
-        user: null
-    }
+    name: '',
+    password: 0
 }
 
 export default function loginIn(state = initialState, action) {
     switch (action.type) {
-        case types.LOGIN_IN_DOING:
-            return {
-                ...state,
-                data: action.data
-            }
 
         case types.LOGIN_IN_DONE:
             return {
-                ...state,
-                data: action.data
+                status: 1,
+                message: '登录成功',
+                user: {
+                    ...action.data
+                }
             }
 
         case types.LOGIN_IN_ERROR:
             return {
-                ...state,
-                data: action.data
+                status: -1,
+                message: '登录失败',
+                user: {
+                    ...action.data
+                }
             }
         case types.LOGIN_IN_OUT:
             return {
-                ...state,
-                data: action.data
+                status: 0,
+                message: '退出登录',
+                user: null
             }
 
         default:
